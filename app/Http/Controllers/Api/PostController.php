@@ -26,7 +26,12 @@ class PostController extends Controller
 		]);
 
 		if ($validator->fails()) {
-			return new PostResource('ERROR', 422, 'Validation error', $validator->errors());
+			return response()->json([
+				'status' => 'ERROR',
+				'code' => 422,
+				'message' => 'Validation error',
+				'data' => $validator->errors()
+			], 422);
 		}
 
 		$image = $request->file('image');
@@ -62,7 +67,12 @@ class PostController extends Controller
 			]);
 
 			if ($validator->fails()) {
-				return new PostResource('ERROR', 422, 'Validation error', $validator->errors());
+				return response()->json([
+					'status' => 'ERROR',
+					'code' => 422,
+					'message' => 'Validation error',
+					'data' => $validator->errors()
+				], 422);
 			}
 
 			if ($request->hasFile('image')) {
